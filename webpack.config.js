@@ -2,10 +2,14 @@ const path =require('path');
 const ExtractTextPlugin=require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin=require('html-webpack-plugin');
 const CleanWebpackPlugin=require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack=require('webpack');
 
-const extractPlugin=new ExtractTextPlugin({
-    filename:'main.css'
+// const extractPlugin=new ExtractTextPlugin({
+//     filename:'main.css'
+// });
+const miniExtractPlugin=new MiniCssExtractPlugin({
+   filename:'main.css'
 });
 
 module.exports={
@@ -33,13 +37,21 @@ module.exports={
                 ]
             },{
                 test:/\.scss$/,
-                use:['css-hot-loader'].concat(extractPlugin.extract({
-                    use:['css-loader','sass-loader']
-                }))
+                use:[
+                    'css-hot-loader',
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+
+                ]
+                // use:extractPlugin.extract({
+                //     use:['css-loader','sass-loader']
+                // })
             },{
                 test:/\.html$/,
                 use:['html-loader'],
-            },{
+            },
+            {
                 test:/\.(jpeg|jpg|png)$/,
                 use:[
                     {
@@ -55,11 +67,12 @@ module.exports={
         ]
     },
     plugins:[
-        // new webpack.ProvidePlugin({
-        //     $:'jquery',
-        //     jQuery:'jquery'
-        // }),
-        extractPlugin,
+        new webpack.ProvidePlugin({
+            $:'jquery',
+            jQuery:'jquery'
+        }),
+        //extractPlugin,
+        miniExtractPlugin,
         new HtmlWebpackPlugin({
           filename:'index.html',
           template:'src/index.html'
@@ -69,7 +82,7 @@ module.exports={
           template:'src/users.html',
           chunks:[]
         }),
-        //new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist']),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin()
     ],

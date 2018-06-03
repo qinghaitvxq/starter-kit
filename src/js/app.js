@@ -1,6 +1,6 @@
 //import {moduleInfo} from './helper';
 import '../css/main.scss';
-//import 'jquery';
+import 'jquery';
 
 
 console.log("this is app.js");
@@ -10,8 +10,8 @@ console.log('jquery功能');
 console.log(imgObj);
 
 console.log("开始调用下面模块功能：");
-//let title=$('.title');
-//title.text("独占我的英雄天堂");
+let title=$('.title');
+title.text("独占我的英雄");
 //moduleInfo();
 
 if(module.hot){
