@@ -15,13 +15,14 @@ const extractPlugin=new ExtractTextPlugin({
 module.exports={
 
     entry: {
-        app: './src/js/app.js'
+        app: './src/js/app.js',
+        exercise:'./src/js/exercise.js'
     },
 
     output:{
         path:path.resolve(__dirname,'dist'),
         publicPath:'/',
-        filename:'bundle.js'
+        filename:'[name].js'
     },
     module:{
         rules:[
@@ -86,12 +87,17 @@ module.exports={
           template:'src/users.html',
           chunks:[]
         }),
+        new HtmlWebpackPlugin({
+            filename:'exercise.html',
+            template:'src/exercise.html',
+            chunks:['exercise']
+        }),
         new CleanWebpackPlugin(['dist']),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin()
     ],
     devServer:{
-        contentBase:path.resolve(__dirname,"src"),
+        contentBase:path.resolve(__dirname,"dist"),
         hot:true,
         compress:true
         //publicPath:'/',
