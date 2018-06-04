@@ -16,7 +16,7 @@ module.exports={
 
     entry: {
         app: './src/js/app.js',
-        exercise:'./src/js/exercise.js'
+        exercise:['babel-polyfill','./src/js/exercise.js']
     },
 
     output:{
