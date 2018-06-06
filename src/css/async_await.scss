@@ -1,0 +1,23 @@
+*{
+  box-sizing: border-box;
+}
+img{
+  margin:10px;
+}
+.definition{
+  background: #d6d6d6;
+  width:40%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #b0b0b0;
+  padding:5px 10px 20px 15px;
+  //background-image:url('222');
+}
+.title{
+  font-size: larger;
+  font-weight:bolder;
+  text-align: center;
+}
+.content{
+  line-height: 24px;
+
+}

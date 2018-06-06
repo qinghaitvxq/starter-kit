@@ -16,7 +16,7 @@ module.exports={
 
     entry: {
         app: './src/js/app.js',
-        exercise:['babel-polyfill','./src/js/exercise.js']
+        asyncAwait:['babel-polyfill','./src/js/async_await.js']
     },
 
     output:{
@@ -77,7 +77,6 @@ module.exports={
             jQuery:'jquery'
         }),
         extractPlugin,
-        //miniExtractPlugin,
         new HtmlWebpackPlugin({
           filename:'index.html',
           template:'src/index.html'
@@ -88,9 +87,9 @@ module.exports={
           chunks:[]
         }),
         new HtmlWebpackPlugin({
-            filename:'exercise.html',
-            template:'src/exercise.html',
-            chunks:['exercise']
+            filename:'async_await.html',
+            template:'src/async_await.html',
+            chunks:['asyncAwait']
         }),
         new CleanWebpackPlugin(['dist']),
         new webpack.HotModuleReplacementPlugin(),
