@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>750_328_1 小容器布局</title>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header" id="browser">
+    </div>
+    <div class="banner">
+        <div class="text-section">
+            <div class="logo">
+                <div class="logoImg"></div>
+
+            </div>
+            <div class="title">
+                文字文字文字文字
+            </div>
+            <div class="desc">
+                <!--好吃的特色菜,点我即送大礼！-->
+                <div class="leftd"></div>
+                <div class="middled">好吃的特色菜,点我即送大礼！</div>
+                <div class="rightd"></div>
+            </div>
+        </div>
+        <div class="img-section">
+            <img src="./img/main.png" alt="">
+        </div>
+
+    </div>
+</div>
+</body>
+<script>
+    document.documentElement.style.fontSize=10*(750/375)+"px";
+
+    /****************字体信息*****************/
+    var fontArray=[
+        {font:"方正兰亭粗黑简体",filename:"fangzhenglantingcuhei"},
+        {font:"方正兰亭黑简体",filename:"fangzhenglantingheijianti"},
+        {font:"方正正大黑简体",filename:"fangzhengzhengdaheijianti"},
+        {font:"造字工房版黑（非商用） 常规体",filename:"zaozigongfangbanheichangguitiziti"},
+        {font:"造字工房力黑（非商用） 常规体",filename:"zaozigongfangyingliheiguiti"}
+    ];
+    //var backFont='${STD_FONT}';
+    var backFont="方正兰亭粗黑简体";
+
+    var targetObj=fontArray.find(function (item) {
+        return item.font==backFont;
+    });
+
+    var filename=targetObj.filename;
+
+    var title=document.getElementsByClassName("title");
+    if(title!=null){
+        var fontInfo=filename+",'"+backFont+"'"+",STHeiti,Helvetica";
+        title[0].style.fontFamily=fontInfo;
+    }
+
+    /****************eft right color 信息*****************/
+        //容器宏信息
+    var cContent="hello#left=0.5&right=1&titleColor=000000&subtitleColor=000000";
+    //背景宏信息
+    var bContent="http://p0.meituan.net/adunion/939c61a0b8f5f8ccc02408d00d0e00ff203371.jpg#titleColor=ffffff&subtitleColor=000000";
+
+    //获取目标DOM元素
+    var leftd=document.getElementsByClassName('leftd'),
+        rightd=document.getElementsByClassName('rightd'),
+        title=document.getElementsByClassName('title'),
+        desc=document.getElementsByClassName('desc');
+
+    /*主副标题颜色限制：
+       1. 小容器布局：主标题取背景宏里titleColor，副标题取容器宏subtitleColor。
+       2. 大容器布局：主标题取容器宏里titleColor，副标题取容器宏subtitleColor。
+       3. 无容器布局：主标题取背景宏里titleColor，副标题取背景宏subtitleColor。
+    */
+
+    // 正则
+    var leftReg = /left=([^&]*)/,
+        rightReg = /right=([^&]*)/,
+        titleColorReg = /titleColor=([^&]*)/,
+        subTitleColorReg= /subtitleColor=([^&]*)/;
+
+    var leftInfo = cContent.match(leftReg),
+        rightInfo = cContent.match(rightReg),
+        titleColorInfo = bContent.match(titleColorReg),
+        subTitleColorInfo=cContent.match(subTitleColorReg);
+
+
+    if (leftInfo != null && leftd.length>0 ) {
+        var domEle=leftd[0];
+        domEle.style.width=leftInfo[1]*1.8+"rem";
+    }
+    if (rightInfo != null && rightd.length>0) {
+        var domEle=rightd[0];
+        domEle.style.width=rightInfo[1]*1.8+"rem";
+    }
+    if (titleColorInfo != null && title.length>0) {
+        var domEle=title[0];
+        domEle.style.color="#"+titleColorInfo[1];
+        if(titleColorInfo[1]=="ffffff"){
+            domEle.style.textShadow='1px 1px 5px #505050';
+        }
+    }
+    if (subTitleColorInfo != null && desc.length>0) {
+        var domEle=desc[0];
+        domEle.style.color="#"+subTitleColorInfo[1];
+    }
+
+
+
+
+</script>
+</html>

@@ -6,7 +6,7 @@ const CleanWebpackPlugin=require('clean-webpack-plugin');
 const webpack=require('webpack');
 
 const extractPlugin=new ExtractTextPlugin({
-    filename:'main.css'
+    filename:'[name].css'
 });
 // const miniExtractPlugin=new MiniCssExtractPlugin({
 //    filename:'main.css'
@@ -16,7 +16,8 @@ module.exports={
 
     entry: {
         app: './src/js/app.js',
-        asyncAwait:['babel-polyfill','./src/js/async_await.js']
+        asyncAwait:['babel-polyfill','./src/js/async_await.js'],
+        snapshot:['./src/js/snapshot.js']
     },
 
     output:{
@@ -79,7 +80,8 @@ module.exports={
         extractPlugin,
         new HtmlWebpackPlugin({
           filename:'index.html',
-          template:'src/index.html'
+          template:'src/index.html',
+          chunks:['app']
         }),
         new HtmlWebpackPlugin({
           filename:'users.html',
@@ -90,6 +92,11 @@ module.exports={
             filename:'async_await.html',
             template:'src/async_await.html',
             chunks:['asyncAwait']
+        }),
+        new HtmlWebpackPlugin({
+            filename:'snapshot.html',
+            template:'src/snapshot.html',
+            chunks:['snapshot']
         }),
         new CleanWebpackPlugin(['dist']),
         new webpack.HotModuleReplacementPlugin(),
