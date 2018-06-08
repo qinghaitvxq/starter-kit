@@ -17,7 +17,8 @@ module.exports={
     entry: {
         app: './src/js/app.js',
         asyncAwait:['babel-polyfill','./src/js/async_await.js'],
-        snapshot:['./src/js/snapshot.js']
+        snapshot:['./src/js/snapshot.js'],
+        canvas:['./src/js/canvas.js']
     },
 
     output:{
@@ -97,6 +98,11 @@ module.exports={
             filename:'snapshot.html',
             template:'src/snapshot.html',
             chunks:['snapshot']
+        }),
+        new HtmlWebpackPlugin({
+            filename:'canvas.html',
+            template:'src/canvas.html',
+            chunks:['canvas']
         }),
         new CleanWebpackPlugin(['dist']),
         new webpack.HotModuleReplacementPlugin(),
